@@ -90,22 +90,22 @@ configure_prompt() {
 
     if [ -n "$tun0" ]
     then
-	tun0='%F{cyan}'$(echo $tun0 | cut -d "." -f 3,4)'%F{magenta}  '
+	tun_colord='%F{cyan}'$(echo $tun0 | cut -d "." -f 3,4)'%F{magenta}  '
     fi
     # Skull emoji for root terminal
     [ "$EUID" -eq 0 ] && prompt_symbol=🦆
     case "$PROMPT_ALTERNATIVE" in
         kalitwoline)
-            PROMPT=$'%F{%(#.blue.green)}┌──${tun0:+($tun0)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
+            PROMPT=$'%F{%(#.blue.green)}┌──${tun_colord:+($tun_colord)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
             ;;
         oneline)
-	    PROMPT=$' %F{magenta}%B${tun0:+$tun0}➡%b%F{reset}  '
+	    PROMPT=$' %F{magenta}%B${tun_colord:+$tun_colord}➡%b%F{reset}  '
             ;;
         arch)
-	    PROMPT=$'%F{blue}┌───${tun0:+$tun0}[%B%F{red}%(6~.%-1~/…/%4~.%5~)%b%F{blue}]\n└─%F{ccc}$%F{reset} '
+	    PROMPT=$'%F{blue}┌───${tun_colord:+$tun_colord}[%B%F{red}%(6~.%-1~/…/%4~.%5~)%b%F{blue}]\n└─%F{ccc}$%F{reset} '
 	    ;;
 	experimental)
-	    PROMPT=$'%F{blue}└─${tun0:+$tun0}[%B%F{red}%(6~.%-1~/…/%4~.%5~)%b%F{blue}]%F{reset} '
+	    PROMPT=$'%F{blue}└─${tun_colord:+$tun_colord}[%B%F{red}%(6~.%-1~/…/%4~.%5~)%b%F{blue}]%F{reset} '
             ;;
     esac
     unset prompt_symbol
@@ -257,10 +257,3 @@ fi
 
 
 export PATH="$PATH:$(go env GOPATH)/bin:/home/user/.local/share/gem/ruby/3.0.0/bin"
-
-# bun completions
-[ -s "/home/user/.bun/_bun" ] && source "/home/user/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
