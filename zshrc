@@ -99,7 +99,7 @@ configure_prompt() {
             PROMPT=$'%F{%(#.blue.green)}┌──${tun_colord:+($tun_colord)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
             ;;
         oneline)
-	    PROMPT=$' %F{magenta}%B${tun_colord:+$tun_colord}➡%b%F{reset}  '
+	    PROMPT=$'%F{%{magenta}%B${VIRTUAL_ENV:+*}%F{reset} %F{magenta}%B${tun_colord:+$tun_colord}➡%b%F{reset}  '
             ;;
         arch)
 	    PROMPT=$'%F{blue}┌───${tun_colord:+$tun_colord}[%B%F{red}%(6~.%-1~/…/%4~.%5~)%b%F{blue}]\n└─%F{ccc}$%F{reset} '
